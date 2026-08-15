@@ -1,0 +1,29 @@
+name: Test macOS Omgeving
+
+# Dit bepaalt wanneer de workflow start (bijvoorbeeld als je code pusht naar 'main')
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: # Hiermee kun je hem ook handmatig starten via de GitHub website
+
+jobs:
+  macos-test:
+    runs-on: macos-latest # Dit vertelt GitHub dat het een macOS-machine moet gebruiken
+
+    steps:
+      # Stap 1: Haal je projectcode op
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Stap 2: Voer een simpel commando uit om te testen
+      - name: Systeeminfo opvragen
+        run: |
+          echo "Huidige macOS versie:"
+          sw_vers
+          echo "Actieve hardware/architectuur:"
+          uname -a
+
+      # Stap 3: Je eigen tests ofbouwstappen toevoegen
+      - name: Voer eigen opdrachten uit
+        run: |
+          echo "Hier kun je jouw macOS-commando's neerzetten!"
