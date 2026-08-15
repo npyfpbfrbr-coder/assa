@@ -1,0 +1,24 @@
+services:
+  macos:
+    image: dockurr/macos:latest
+    container_name: macos
+    environment:
+      # macOS Version (options: "15" Sequoia, "14" Sonoma, "13" Ventura, "12" Monterey)
+      VERSION: "15" 
+      # Hardware allocation (adjust to fit your Windows host specs)
+      RAM_SIZE: "8G"
+      CPU_CORES: "4"
+      DISK_SIZE: "64G"
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "8006:8006"       # Web interface for initial macOS setup
+      - "5900:5900/tcp"   # VNC server
+      - "5900:5900/udp"
+    volumes:
+      - ./macos_data:/storage
+    restart: always
+    stop_grace_period: 2m
